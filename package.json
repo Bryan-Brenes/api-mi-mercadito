@@ -1,0 +1,27 @@
+{
+  "name": "api-mi-mercadito",
+  "version": "1.0.0",
+  "description": "Api para el proyecto final del curso introductorio a las páginas web",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bryan-Brenes/api-mi-mercadito.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bryan-Brenes/api-mi-mercadito/issues"
+  },
+  "homepage": "https://github.com/Bryan-Brenes/api-mi-mercadito#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "pg": "^7.17.1"
+  }
+}
