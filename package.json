@@ -4,7 +4,6 @@
   "description": "Api para el proyecto final del curso introductorio a las páginas web",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
   "repository": {
