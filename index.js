@@ -11,7 +11,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-    pool.query(`select * from datos`, (err, res2) => {
+    pool.query(`select * from usuarios`, (err, res2) => {
 
         if (err) {
             res.send("error: " + err)
