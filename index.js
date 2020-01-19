@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 })
 
 
-var puerto = 3000 || process.env.PORT;
-app.listen(puerto, () => {
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
     console.log(`Escuchando en puerto ${puerto}`);
 });
