@@ -81,7 +81,7 @@ app.get('/mostrarComerciantes', (req, res) => {
  */
 app.get('/comerciante/:id', (req, res) => {
     var id = req.params.id;
-    pool.query(`select id, nombre from comerciantes`, (err, res2) => {
+    pool.query(`select id, nombre from comerciantes where id = '${id}'`, (err, res2) => {
         if (err) {
             res.send("error: " + err)
         } else {
@@ -149,7 +149,7 @@ app.post('/producto', (req, res) => {
 })
 
 /**
- * Mostrar todos los productos
+ * Mostrar todos los productos de un comerciante
  */
 app.get('/mostrarProductos/:idComerciante', (req, res) => {
     var idComerciante = req.params.idComerciante;
@@ -227,6 +227,7 @@ app.get('/comentarios/:id', (req, res) => {
         }
     })
 })
+
 
 
 const PORT = process.env.PORT || 3000;
