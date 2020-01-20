@@ -196,6 +196,37 @@ app.get('/login/:id', (req, res) => {
     })
 })
 
+/**
+ * Ingresar comnentario por cliente
+ */
+app.post('/comentarios', (req, res) => {
+    var idCliente = req.body.idCliente;
+    var idComerciante = req.body.idComerciante;
+    var comentario = req.body.comentario;
+    var fecha = req.body.fecha;
+
+    pool.query(`select agregarComentario('${idCliente}','${idComerciante}','${comentario}','${fecha}')`, (err, res2) => {
+        if (err) {
+            res.send("error: " + err)
+        } else {
+            res.send(res2.rows[0].agregarcomentario);
+        }
+    })
+})
+
+/**
+ * obtener comentarios por comerciante
+ */
+app.get('/comentarios/:id', (req, res) => {
+    var idComerciante = req.params.id;
+    pool.query(`select clientes.nombre , clientes.foto , comentarios.comentario from comentarios inner join clientes on comentarios.idCliente=clientes.id where idComerciante = '${idComerciante}' ;`, (err, res2) => {
+        if (err) {
+            res.send("error: " + err)
+        } else {
+            res.send(res2.rows);
+        }
+    })
+})
 
 
 const PORT = process.env.PORT || 3000;
