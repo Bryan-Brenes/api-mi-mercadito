@@ -31,8 +31,8 @@ app.post('/cliente', (req, res) => {
         if (err) {
             res.send("error: " + err)
         } else {
-            var user1 = res2.rows[1]
-            if (user1.ingresarCliente == 'error') {
+            var user1 = res2.rows[0].ingresarcliente;
+            if (user1 == 'error') {
                 res.send({ status: "error" });
             } else {
                 res.send({ status: "listo" });
