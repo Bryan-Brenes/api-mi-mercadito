@@ -11,6 +11,10 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+app.post('/prueba', (req, res) => {
+    res.send(req.body)
+})
+
 /**
  * Registrar un cliente nuevo
  */
