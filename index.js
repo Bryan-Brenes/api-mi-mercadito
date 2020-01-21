@@ -237,7 +237,7 @@ app.post('/comentarios', (req, res) => {
         if (err) {
             res.send("error: " + err)
         } else {
-            res.send(res2.rows[0].agregarcomentario);
+            res.send(res2.rows/* [0].agregarcomentario */);
         }
     })
 })
