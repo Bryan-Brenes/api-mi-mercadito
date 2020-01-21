@@ -233,7 +233,7 @@ app.post('/comentarios', (req, res) => {
 
     //res.send(req.body)
 
-    pool.query(`select agregarcomentario('${idComerciante}','${idCliente}', '${comentario}','${fecha}')`, (err, res2) => {
+    pool.query(`INSERT INTO comentarios(idComerciante, idCliente, fecha, comentario) VALUES('${idComerciante}', '${idCliente}', '${fecha}', '${comentario}');`, (err, res2) => {
         if (err) {
             res.send("error: " + err)
         } else {
