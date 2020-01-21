@@ -231,13 +231,12 @@ app.post('/comentarios', (req, res) => {
     var comentario = req.body.comentario;
     var fecha = req.body.fecha;
 
-    //res.send(req.body)
-
+    //res.send(`Comerciante: ${idComerciante}, Cliente: ${idCliente}`)
     pool.query(`INSERT INTO comentarios(idComerciante, idCliente, fecha, comentario) VALUES('${idComerciante}', '${idCliente}', '${fecha}', '${comentario}');`, (err, res2) => {
         if (err) {
             res.send("error: " + err)
         } else {
-            res.send(res2.rows[0].agregarcomentario);
+            res.send({ status: 'listo' }/* [0].agregarcomentario */);
         }
     })
 })
