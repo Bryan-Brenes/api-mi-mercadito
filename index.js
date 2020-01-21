@@ -197,6 +197,17 @@ app.get('/login/:id', (req, res) => {
     })
 })
 
+app.get('/cliente/rol/:id', (req, res) => {
+    var id = req.params.id;
+    pool.query(`select rol from usuarios where email = '${id}'`, (err, res2) => {
+        if (err) {
+            res.send("error: " + err)
+        } else {
+            res.send(res2.rows[0]);
+        }
+    })
+})
+
 /**
  * Ingresar comnentario por cliente
  */
