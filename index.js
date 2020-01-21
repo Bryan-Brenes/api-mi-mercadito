@@ -233,11 +233,11 @@ app.post('/comentarios', (req, res) => {
 
     //res.send(req.body)
 
-    pool.query(`select agregarcomentario('${idCliente}','${idComerciante}', '${comentario}','${fecha}')`, (err, res2) => {
+    pool.query(`select agregarcomentario('${idComerciante}','${idCliente}', '${comentario}','${fecha}')`, (err, res2) => {
         if (err) {
             res.send("error: " + err)
         } else {
-            res.send(res2.rows/* [0].agregarcomentario */);
+            res.send(res2.rows[0].agregarcomentario);
         }
     })
 })
