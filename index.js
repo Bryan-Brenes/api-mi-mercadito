@@ -29,9 +29,9 @@ app.post('/cliente', (req, res) => {
         } else {
             var user1 = res2.rows[1]
             if (user1.ingresarCliente == 'error') {
-                res.send('error');
+                res.send({ status: "error" });
             } else {
-                res.send('listo');
+                res.send({ status: "listo" });
             }
         }
     });
