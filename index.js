@@ -192,7 +192,7 @@ app.get('/login/:id', (req, res) => {
         if (err) {
             res.send("error: " + err)
         } else {
-            res.send(res2.rows[0].obtenercontrasenna);
+            res.send({ rol: res2.rows[0].obtenercontrasenna });
         }
     })
 })
