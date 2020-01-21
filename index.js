@@ -52,17 +52,17 @@ app.post('/solicitudComerciante', (req, res) => {
 
     pool.query(`select agregarSolicitudComerciante('${email}', '${contrasena}', '${nombre}', '${telefono}', '${ubicacion}', '${nombreCuenta}','${numeroCuenta}')`, (err, res2) => {
         if (err) {
-            res.send("error: " + err)
+            res.send({ status: err })
         } else {
             if (res2.rowCount != 0) {
                 var resultado = res2.rows[0].agregarSolicitudComerciante;
                 if (resultado == 'False') {
-                    res.send('error');
+                    res.send({ status: 'error' });
                 } else {
-                    res.send('listo');
+                    res.send({ status: 'listo' });
                 }
             } else {
-                res.send('error')
+                res.send({ status: 'error' })
             }
         }
     });
