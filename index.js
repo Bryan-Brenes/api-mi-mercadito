@@ -312,9 +312,10 @@ app.get('/pedidos/entregar/:id', (req, res) => {
 /**
  * Coloca el estado del detalle en true
  */
-app.get('/pedidos/producto/:id', (req, res) => {
-    var id = req.params.id;
-    pool.query(`select cambiarEstadoDetallePedido(${id});`, (err, res2) => {
+app.get('/pedidos/producto/:idpedido/:idproducto', (req, res) => {
+    var idpedido = req.params.idpedido;
+    var idproducto = req.params.idproducto;
+    pool.query(`select cambiarEstadoDetallePedido(${idproducto}, ${idpedido});`, (err, res2) => {
         if (err) {
             res.send({ status: err })
         } else {
