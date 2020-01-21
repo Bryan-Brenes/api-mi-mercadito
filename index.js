@@ -169,7 +169,7 @@ app.get('/mostrarProductos/:idComerciante', (req, res) => {
  */
 app.get('/cliente/:id', (req, res) => {
     var id = req.params.id;
-    pool.query(`select * from clientes where id = '${id}'`, (err, res2) => {
+    pool.query(`select * from clientes inner join usuarios on usuarios.email = clientes.id where clientes.id = '${id}'`, (err, res2) => {
         if (err) {
             res.send("error: " + err)
         } else {
