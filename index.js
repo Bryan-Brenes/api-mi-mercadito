@@ -231,7 +231,7 @@ app.post('/comentarios', (req, res) => {
     var comentario = req.body.comentario;
     var fecha = req.body.fecha;
 
-    pool.query(`select agregarComentario('${idCliente}','${idComerciante}','${comentario}','${fecha}')`, (err, res2) => {
+    pool.query(`select agregarcomentario('${idCliente}','${idComerciante}', '${comentario}','${fecha}')`, (err, res2) => {
         if (err) {
             res.send("error: " + err)
         } else {
