@@ -86,7 +86,7 @@ app.get('/mostrarComerciantes', (req, res) => {
  */
 app.get('/comerciante/:id', (req, res) => {
     var id = req.params.id;
-    pool.query(`select id, nombre from comerciantes where id = '${id}'`, (err, res2) => {
+    pool.query(`select * from comerciantes where id = '${id}'`, (err, res2) => {
         if (err) {
             res.send("error: " + err)
         } else {
@@ -94,6 +94,16 @@ app.get('/comerciante/:id', (req, res) => {
         }
     });
 })
+// app.get('/comerciante/:id', (req, res) => {
+//     var id = req.params.id;
+//     pool.query(`select id, nombre from comerciantes where id = '${id}'`, (err, res2) => {
+//         if (err) {
+//             res.send("error: " + err)
+//         } else {
+//             res.send(res2.rows)
+//         }
+//     });
+// })
 
 /**
  * Agregar un repartidor
@@ -244,6 +254,77 @@ app.get('/comentarios/:id', (req, res) => {
     })
 })
 
+app.get('/pedidos', (req, res) => {
+    pool.query(`SELECT clientes.nombre, pedidos.* FROM clientes INNER JOIN pedidos ON clientes.id = pedidos.idcliente ;`, (err, res2) => {
+        if (err) {
+            res.send("error: " + err)
+        } else {
+            res.send(res2.rows);
+        }
+    })
+})
+
+app.get('/pedidos/detalle/:id', (req, res) => {
+    var id = req.params.id;
+    pool.query(`SELECT pedidos.id as idPedido , detalleporpedido.idproducto as idProducto, productos.nombre as nombreProducto, 
+    productosporferia.idcomerciante as idComerciante,  detalleporpedido.cantidad as cantidadProducto , 
+    detalleporpedido.medicion as medicionProducto, detalleporpedido.estado as estadoProducto, 
+    clientes.nombre as nombreCliente, clientes.apellido as apellidoCliente, clientes.telefono as telefonoCliente, 
+    clientes.foto as fotoCliente, pedidos.transporte as trasnporte , pedidos.ubicacion as ubicacionCliente
+   FROM detalleporpedido
+   INNER JOIN pedidos ON detalleporpedido.idpedido = pedidos.id 
+   INNER JOIN clientes ON clientes.id = pedidos.idcliente 
+   INNER JOIN productosporferia on productosporferia.idproducto = detalleporpedido.idproducto
+   INNER JOIN productos on productos.id = detalleporpedido.idproducto 
+   where pedidos.id = ${id};`, (err, res2) => {
+        if (err) {
+            res.send({ status: err })
+        } else {
+            res.send(res2.rows);
+        }
+    })
+})
+
+app.get('/pedidos/preparar/:id', (req, res) => {
+    var id = req.params.id;
+    pool.query(`UPDATE table pedidos SET estadoPreparado = 'true' WHERE idPedido = ${id};`, (err, res2) => {
+        if (err) {
+            res.send({ status: err })
+        } else {
+            res.send({ status: 'listo' });
+        }
+    })
+})
+
+app.get('/pedidos/entregar/:id', (req, res) => {
+    var id = req.params.id;
+    pool.query(`UPDATE table pedidos SET estadoEntregado = 'true' WHERE idPedido = ${id};`, (err, res2) => {
+        if (err) {
+            res.send({ status: err })
+        } else {
+            res.send({ status: 'listo' });
+        }
+    })
+})
+
+/**
+ * Coloca el estado del detalle en true
+ */
+app.get('/pedidos/producto/:id', (req, res) => {
+    var id = req.params.id;
+    pool.query(`UPDATE table detallesporpedido SET estado = 'true' WHERE idProducto = ${id};`, (err, res2) => {
+        if (err) {
+            res.send({ status: err })
+        } else {
+            res.send({ status: 'listo' });
+        }
+    })
+})
+
+// --Actualizar estado detallePorPedido
+// UPDATE table detallesporpedido
+// SET estado = 'true'
+// WHERE idProducto = ;
 
 
 const PORT = process.env.PORT || 3000;
