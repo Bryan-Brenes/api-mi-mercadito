@@ -287,7 +287,7 @@ app.get('/pedidos/detalle/:id', (req, res) => {
 
 app.get('/pedidos/preparar/:id', (req, res) => {
     var id = req.params.id;
-    pool.query(`UPDATE table pedidos SET estadoPreparado = 'true' WHERE idPedido = ${id};`, (err, res2) => {
+    pool.query(`select cambiarEstadoPedidoPreparado(${id});`, (err, res2) => {
         if (err) {
             res.send({ status: err })
         } else {
@@ -298,7 +298,7 @@ app.get('/pedidos/preparar/:id', (req, res) => {
 
 app.get('/pedidos/entregar/:id', (req, res) => {
     var id = req.params.id;
-    pool.query(`UPDATE table pedidos SET estadoEntregado = 'true' WHERE idPedido = ${id};`, (err, res2) => {
+    pool.query(`select cambiarEstadoPedidoEntregado(${id});`, (err, res2) => {
         if (err) {
             res.send({ status: err })
         } else {
@@ -312,7 +312,7 @@ app.get('/pedidos/entregar/:id', (req, res) => {
  */
 app.get('/pedidos/producto/:id', (req, res) => {
     var id = req.params.id;
-    pool.query(`UPDATE table detallesporpedido SET estado = 'true' WHERE idProducto = ${id};`, (err, res2) => {
+    pool.query(`select cambiarEstadoDetallePedido(${id});`, (err, res2) => {
         if (err) {
             res.send({ status: err })
         } else {
