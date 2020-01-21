@@ -268,7 +268,7 @@ app.get('/pedidos', (req, res) => {
 app.get('/pedidos/detalle/:id', (req, res) => {
     var id = req.params.id;
     pool.query(`SELECT pedidos.id as idPedido , detalleporpedido.idproducto as idProducto, productos.nombre as nombreProducto, 
-    productosporferia.idcomerciante as idComerciante,  detalleporpedido.cantidad as cantidadProducto , 
+    productosporferia.idcomerciante as idComerciante, comerciantes.nombre as nombreComerciante, detalleporpedido.cantidad as cantidadProducto , 
     detalleporpedido.medicion as medicionProducto, detalleporpedido.estado as estadoProducto, 
     clientes.nombre as nombreCliente, clientes.apellido as apellidoCliente, clientes.telefono as telefonoCliente, 
     clientes.foto as fotoCliente, pedidos.transporte as trasnporte , pedidos.ubicacion as ubicacionCliente
@@ -277,6 +277,7 @@ app.get('/pedidos/detalle/:id', (req, res) => {
    INNER JOIN clientes ON clientes.id = pedidos.idcliente 
    INNER JOIN productosporferia on productosporferia.idproducto = detalleporpedido.idproducto
    INNER JOIN productos on productos.id = detalleporpedido.idproducto 
+   INNER JOIN comerciantes on productosporferia.idcomerciante =comerciantes.id
    where pedidos.id = ${id};`, (err, res2) => {
         if (err) {
             res.send({ status: err })
