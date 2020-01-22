@@ -370,6 +370,16 @@ app.get('/inventario/:id', (req, res) => {
     })
 })
 
+app.get('/solicitudesPendientes', (req, res) => {
+    pool.query(`select * from solicitudesPendientes where estado = FALSE;`, (err, res2) => {
+        if (err) {
+            res.send({ status: err })
+        } else {
+            res.send(res2.rows);
+        }
+    })
+})
+
 // --Actualizar estado detallePorPedido
 // UPDATE table detallesporpedido
 // SET estado = 'true'
