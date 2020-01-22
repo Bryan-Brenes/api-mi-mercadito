@@ -168,7 +168,7 @@ app.post('/producto', (req, res) => {
  */
 app.get('/productos', (req, res) => {
     //
-    pool.query(`select comerciantes.nombre, productos.nombre, productosporferia.idProducto, productosporferia.montokg, productosporferia.montounidad from productosporferia inner join comerciantes on productosporferia.idcomerciante = comerciantes.id inner join productos on productos.id = productosporferia.idProducto`, (err, res2) => {
+    pool.query(`select comerciantes.nombre as nombrecomerciante, productos.nombre as nombreproducto, productosporferia.idProducto, productosporferia.montokg, productosporferia.montounidad from productosporferia inner join comerciantes on productosporferia.idcomerciante = comerciantes.id inner join productos on productos.id = productosporferia.idProducto`, (err, res2) => {
         if (err) {
             res.send("error: " + err)
         } else {
