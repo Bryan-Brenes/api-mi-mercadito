@@ -549,6 +549,21 @@ app.get('/pedidosCliente/:idCliente', (req, res) => {
     })
 })
 
+app.get('/pedidosCliente/detalles/:id', (req, res) => {
+    var id = req.params.id;
+
+    pool.query(`SELECT detalleporpedido.cantidad as cantidad , productos.nombre as nombreProducto, detalleporpedido.monto 
+   FROM detalleporpedido
+   INNER JOIN productos ON detalleporpedido.idproducto = productos.id  
+   where detalleporpedido.idpedido = ${id}`, (err, res2) => {
+        if (err) {
+            res.send({ status: err })
+        } else {
+            res.send(res2.rows);
+        }
+    })
+})
+
 app.delete('/productosPorFeria/:idComerciante/:idProducto', (req, res) => {
     var idC = req.params.idComerciante;
     var idP = req.params.idProducto;
