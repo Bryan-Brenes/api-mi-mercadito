@@ -426,6 +426,28 @@ app.get('/perfilSolicitud/:id', (req, res) => {
     })
 })
 
+app.get('/repartidores', (req, res) => {
+    pool.query(`select * from repartidores`, (err, res2) => {
+        if (err) {
+            res.send({ status: err })
+        } else {
+            res.send(res2.rows);
+        }
+    })
+})
+
+app.delete('/producto/:idC/:idP', (req, res) => {
+    var idC = req.params.idC;
+    var idP = req.params.idP;
+    pool.query(`delete from productos where id=${idP} and idcomerciante = '${idP}'`, (err, res2) => {
+        if (err) {
+            res.send({ status: err })
+        } else {
+            res.send({ status: 'borrado' });
+        }
+    })
+})
+
 // --Actualizar estado detallePorPedido
 // UPDATE table detallesporpedido
 // SET estado = 'true'
