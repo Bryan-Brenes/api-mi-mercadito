@@ -488,6 +488,27 @@ app.get('/inventario/detalle/:idC/:idP', (req, res) => {
         }
     })
 })
+
+
+//select agregarRepartidor2('PedroMorales@gmail.com' , 'Pedro', 'Morales' , '5694574' , '1998-12-12' , '452 569 14' )
+app.post('/repartidor/agregar', (req, res) => {
+    var email = req.body.email;
+    var nombre = req.body.nombre;
+    var apellido = req.body.apellido;
+    var telefono = req.body.telefono;
+    var fechaNacimiento = req.body.fechaNacimiento;
+    var numeroCuenta = req.body.numeroCuenta;
+
+    pool.query(`select agregarRepartidor2('${email}' , '${nombre}', '${apellido}' , '${telefono}' , '${fechaNacimiento}' , '${numeroCuenta}' )`, (err, res2) => {
+        if (err) {
+            res.send({ status: err })
+        } else {
+            res.send(res2.rows);
+        }
+    })
+})
+
+
 // --Actualizar estado detallePorPedido
 // UPDATE table detallesporpedido
 // SET estado = 'true'
