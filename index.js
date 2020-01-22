@@ -178,7 +178,7 @@ app.get('/productos', (req, res) => {
     });
 })
 
-app.get('/papasfritas', (req, res) => {
+app.get('/invertario/productosFeria', (req, res) => {
     res.send('con salsa');
 })
 //select idproducto, nombre, cantidad, montokg, montounidad from productosporferia inner join productos on productosporferia.idproducto = productos.id where productosporferia.idcomerciante = '${idC}'
