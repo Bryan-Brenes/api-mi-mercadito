@@ -178,21 +178,21 @@ app.get('/productos', (req, res) => {
     });
 })
 
-app.get('/invertario/productosFeria', (req, res) => {
-    res.send('con salsa');
-})
-//select idproducto, nombre, cantidad, montokg, montounidad from productosporferia inner join productos on productosporferia.idproducto = productos.id where productosporferia.idcomerciante = '${idC}'
-// app.get('/invertario/productosFeria/:idComerciante', (req, res) => {
-//     var idC = req.params.idComerciante;
-//     pool.query(``, (err, res2) => {
-//         if (err) {
-//             res.send("error: " + err)
-//         } else {
-//             var resultado = res2.rows;
-//             res.send(resultado);
-//         }
-//     });
+// app.get('/invertario/productosFeria', (req, res) => {
+//     res.send('con salsa');
 // })
+//
+app.get('/invertario/productosFeria/:idComerciante', (req, res) => {
+    var idC = req.params.idComerciante;
+    pool.query(`select idproducto, nombre, cantidad, montokg, montounidad from productosporferia inner join productos on productosporferia.idproducto = productos.id where productosporferia.idcomerciante = '${idC}'`, (err, res2) => {
+        if (err) {
+            res.send("error: " + err)
+        } else {
+            var resultado = res2.rows;
+            res.send(resultado);
+        }
+    });
+})
 
 app.get('/producto/:id', (req, res) => {
     //
