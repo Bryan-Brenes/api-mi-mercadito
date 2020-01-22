@@ -140,7 +140,7 @@ app.put('/solicitudComerciante/aceptar/:id', (req, res) => {
             res.send("error: " + err)
         } else {
             var resultado = res2.rows[0].aceptarcomerciante;
-            res.send(resultado);
+            res.send({ status: resultado });
         }
     });
 })
