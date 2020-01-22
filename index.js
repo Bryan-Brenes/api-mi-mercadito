@@ -285,6 +285,28 @@ app.get('/comentarios/:id', (req, res) => {
     })
 })
 
+app.post('/pedidos', (req, res) => {
+    var idCliente = req.body.idCliente;
+    var fecha = req.body.fecha;
+    var monto = req.body.monto;
+    var transporte = req.body.transporte;
+    var estadoPreparado = req.body.estadoPreparado;
+    var estadoEntregado = req.body.estadoEntregado;
+    var ubicacion = req.body.ubicacion;
+
+    pool.query(`select agregarPedido('${idCliente}', '${fecha}', ${monto}, '${transporte}', false, false, '${ubicacion}')`, (err, res2) => {
+        if (err) {
+            res.send("error: " + err)
+        } else {
+            //res.send(res2.rows)
+            res.send({ id: res2.rows[0].agregarpedido });
+        }
+    })
+
+
+
+})
+
 app.get('/pedidos', (req, res) => {
     pool.query(`SELECT clientes.nombre, pedidos.* FROM clientes INNER JOIN pedidos ON clientes.id = pedidos.idcliente ;`, (err, res2) => {
         if (err) {
@@ -372,6 +394,17 @@ app.get('/inventario/:id', (req, res) => {
 
 app.get('/solicitudesPendientes', (req, res) => {
     pool.query(`select * from solicitudesPendientes where estado = FALSE;`, (err, res2) => {
+        if (err) {
+            res.send({ status: err })
+        } else {
+            res.send(res2.rows);
+        }
+    })
+})
+
+app.get('/perfilSolicitud/:id', (req, res) => {
+    var id = req.params.id;
+    pool.query(`select * from solicitudesPendientes where id = '${id}';`, (err, res2) => {
         if (err) {
             res.send({ status: err })
         } else {
