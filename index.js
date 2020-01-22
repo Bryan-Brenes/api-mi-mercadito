@@ -200,8 +200,8 @@ app.get('/producto/descripcion/:id', (req, res) => {
         if (err) {
             res.send("error: " + err)
         } else {
-            var resultado = res2.rows;
-            res.send(resultado);
+
+            res.send(res2.rows);
         }
     });
 })
