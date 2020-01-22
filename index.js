@@ -194,6 +194,22 @@ app.get('/invertario/productosFeria/:idComerciante', (req, res) => {
     });
 })
 
+app.post('/productosPorFeria', (req, res) => {
+    var idProducto = req.body.idProducto;
+    var idComerciante = req.body.idComerciante;
+    var cantidad = req.body.cantidad;
+    var montokg = req.body.montoKg;
+    var montoUnidad = req.body.montoUnidad;
+    pool.query(`insert into productosporferia(idproducto, idcomerciante, cantidad, montokg, montounidad) values(${idProducto}, '${idComerciante}', ${cantidad},${montokg}, ${montoUnidad})`, (err, res2) => {
+        if (err) {
+            res.send("error: " + err)
+        } else {
+            var resultado = res2.rows;
+            res.send({ status: 'listo' });
+        }
+    });
+})
+
 app.get('/producto/:id', (req, res) => {
     //
     var id = req.params.id;
