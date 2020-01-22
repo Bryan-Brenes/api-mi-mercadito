@@ -158,7 +158,7 @@ app.post('/producto', (req, res) => {
             res.send("error: " + err)
         } else {
             var resultado = res2.rows[0].agregarproducto;
-            res.send(resultado);
+            res.send({ status: resultado });
         }
     });
 })
