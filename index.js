@@ -549,6 +549,18 @@ app.get('/pedidosCliente/:idCliente', (req, res) => {
     })
 })
 
+app.delete('/productosPorFeria/:idComerciante/:idProducto', (req, res) => {
+    var idC = req.params.idComerciante;
+    var idP = req.params.idProducto;
+    pool.query(`delete from productosporferia where idproducto = ${idP} and idComerciante = '${idC}'`, (err, res2) => {
+        if (err) {
+            res.send({ status: err })
+        } else {
+            res.send({ status: 'listo' });
+        }
+    })
+})
+
 
 // --Actualizar estado detallePorPedido
 // UPDATE table detallesporpedido
