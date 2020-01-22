@@ -178,8 +178,8 @@ app.get('/productos', (req, res) => {
     });
 })
 
-app.get('/invertario/feria/:idC', (req, res) => {
-    var idC = req.params.idC;
+app.get('/invertario/feria/:idComerciante', (req, res) => {
+    var idC = req.params.idComerciante;
     pool.query(`select idproducto, nombre, cantidad, montokg, montounidad from productosporferia inner join productos on productosporferia.idproducto = productos.id where productosporferia.idcomerciante = '${idC}'`, (err, res2) => {
         if (err) {
             res.send("error: " + err)
