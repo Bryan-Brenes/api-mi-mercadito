@@ -193,6 +193,19 @@ app.get('/producto/:id', (req, res) => {
     });
 })
 
+app.get('/producto/descripcion/:id', (req, res) => {
+    //
+    var id = req.params.id;
+    pool.query(`select idProducto, productos.nombre,productos.descripcion, montokg from productosporferia inner join productos on productosporferia.idproducto = productos.id where productosporferia.idProducto = ${id}`, (err, res2) => {
+        if (err) {
+            res.send("error: " + err)
+        } else {
+            var resultado = res2.rows;
+            res.send(resultado);
+        }
+    });
+})
+
 /**
  * Mostrar todos los productos de un comerciante
  */
