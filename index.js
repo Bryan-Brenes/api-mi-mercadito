@@ -540,7 +540,7 @@ app.post('/repartidor/agregar', (req, res) => {
 
 app.get('/pedidosCliente/:idCliente', (req, res) => {
     var id = req.params.idCliente;
-    pool.query(``, (err, res2) => {
+    pool.query(`select id as idPedido, fecha , monto from pedidos where idcliente = '${id}' ;`, (err, res2) => {
         if (err) {
             res.send({ status: err })
         } else {
