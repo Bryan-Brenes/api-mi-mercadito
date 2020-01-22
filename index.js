@@ -206,6 +206,18 @@ app.get('/producto/descripcion/:id', (req, res) => {
     });
 })
 
+app.get('/inventarios/:idC', (req, res) => {
+    var id = req.params.idC;
+    pool.query(`select idcomerciante, nombre, descripcion from productos where idcomerciante = ${id}`, (err, res2) => {
+        if (err) {
+            res.send("error: " + err)
+        } else {
+
+            res.send(res2.rows);
+        }
+    });
+})
+
 /**
  * Mostrar todos los productos de un comerciante
  */
