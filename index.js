@@ -355,6 +355,21 @@ app.get('/pedidos/producto/:idproducto/:idpedido', (req, res) => {
     })
 })
 
+/**
+ * Obtener el inventario de un comerciante
+ */
+
+app.get('/inventario/:id', (req, res) => {
+    var id = req.params.id;
+    pool.query(`select id, nombre, descripcion from productos where idComerciante = '${id}'`, (err, res2) => {
+        if (err) {
+            res.send({ status: err })
+        } else {
+            res.send(res2.rows);
+        }
+    })
+})
+
 // --Actualizar estado detallePorPedido
 // UPDATE table detallesporpedido
 // SET estado = 'true'
