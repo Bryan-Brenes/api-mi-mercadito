@@ -405,6 +405,7 @@ app.get('/inventario/:id', (req, res) => {
     })
 })
 
+
 app.get('/solicitudesPendientes', (req, res) => {
     pool.query(`select * from solicitudesPendientes where estado = FALSE;`, (err, res2) => {
         if (err) {
@@ -444,6 +445,21 @@ app.delete('/producto/:idC/:idP', (req, res) => {
             res.send({ status: err })
         } else {
             res.send({ status: 'borrado' });
+        }
+    })
+})
+
+app.post('/detallePedido', (req, res) => {
+    var idPedido = req.body.idPedido;
+    var idProducto = req.body.idProducto;
+    var cantidad = req.body.cantidad;
+    var monto = req.body.monto;
+
+    pool.query(`select agregarDetallePedido(${idPedido} , ${idProducto}, ${cantidad}, ${monto})`, (err, res2) => {
+        if (err) {
+            res.send({ status: err })
+        } else {
+            res.send({ status: 'agregado' });
         }
     })
 })
