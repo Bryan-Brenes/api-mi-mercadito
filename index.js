@@ -538,6 +538,17 @@ app.post('/repartidor/agregar', (req, res) => {
     })
 })
 
+app.get('/pedidosCliente/:idCliente', (req, res) => {
+    var id = req.params.idCliente;
+    pool.query(``, (err, res2) => {
+        if (err) {
+            res.send({ status: err })
+        } else {
+            res.send(res2.rows);
+        }
+    })
+})
+
 
 // --Actualizar estado detallePorPedido
 // UPDATE table detallesporpedido
