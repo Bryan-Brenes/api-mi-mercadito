@@ -476,6 +476,18 @@ app.post('/detallePedido', (req, res) => {
     })
 })
 
+app.get('/inventario/detalle/:idC/:idP', (req, res) => {
+    var idC = req.params.idC;
+    var idP = req.params.idP;
+
+    pool.query(`select nombre, descripcion from productos where idcomerciante = '${idC}' and id = ${idP}`, (err, res2) => {
+        if (err) {
+            res.send({ status: err })
+        } else {
+            res.send(res2.rows);
+        }
+    })
+})
 // --Actualizar estado detallePorPedido
 // UPDATE table detallesporpedido
 // SET estado = 'true'
